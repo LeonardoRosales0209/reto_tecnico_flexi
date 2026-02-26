@@ -1,0 +1,1 @@
+1. Analiza este documento y dame la arquitectura recomendada para la solución y por qué
