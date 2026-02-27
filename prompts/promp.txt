@@ -1,3 +1,4 @@
 1. Analiza este documento y dame la arquitectura recomendada para la solución y por qué
 2. ¿Cómo configuro Docker? - Detalla paso a paso
 3. He creado los modelos utilizando SQLAlchemy, ayudame a crear la conexión a postrgresql y a utilizar Alembic
+4. Se han creado los API REST necesarios, ahora necesito utilizar Celery con Redis como broker para entregas asíncrona, muestrame como realizarlo

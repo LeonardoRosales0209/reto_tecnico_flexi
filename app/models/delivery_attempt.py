@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import DateTime, Text, Integer, ForeignKey, String
 from sqlalchemy.dialects.postgresql import UUID
@@ -15,4 +15,4 @@ class DeliveryAttempt(Base):
     status: Mapped[str] = mapped_column(String(50), nullable=False)
     http_status_code: Mapped[int | None] = mapped_column(Integer, nullable=False)
     response_body: Mapped[str | None] = mapped_column(Text, nullable=True)
-    attempted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=datetime.now)
+    attempted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=datetime.now(timezone.utc))
