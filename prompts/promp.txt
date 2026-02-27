@@ -1,3 +1,3 @@
 1. Analiza este documento y dame la arquitectura recomendada para la solución y por qué
-2. He creado los modelos utilizando SQLAlchemy, ayudame a crear la conexión a postrgresql y a utilizar Alembic
-3. ¿Cómo configuro Docker? - Detalla paso a paso
+2. ¿Cómo configuro Docker? - Detalla paso a paso
+3. He creado los modelos utilizando SQLAlchemy, ayudame a crear la conexión a postrgresql y a utilizar Alembic
