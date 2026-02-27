@@ -1,1 +1,2 @@
 1. Analiza este documento y dame la arquitectura recomendada para la solución y por qué
+2. ¿Cómo conecto mi aplicación Python a PostgreSQL?
