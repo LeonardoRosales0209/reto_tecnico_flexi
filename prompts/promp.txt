@@ -2,3 +2,5 @@
 2. ¿Cómo configuro Docker? - Detalla paso a paso
 3. He creado los modelos utilizando SQLAlchemy, ayudame a crear la conexión a postrgresql y a utilizar Alembic
 4. Se han creado los API REST necesarios, ahora necesito utilizar Celery con Redis como broker para entregas asíncrona, muestrame como realizarlo
+5. ¿Cómo implemento la tarea con Celery Beat?
+6. Utiliza pytest + httpx y genera al menos 5 tests
