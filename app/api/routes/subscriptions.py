@@ -8,6 +8,8 @@ from app.schemas.subscription import SubscriptionCreate, SubscriptionGet, Subscr
 from app.models.subscription import Subscription
 from datetime import datetime, timezone
 
+from uuid import UUID
+
 router = APIRouter(prefix="/subscriptions", tags=["subscriptions"])
 
 def utcnow():
@@ -45,7 +47,7 @@ def list_active_subscriptions(
     return subs
 
 @router.get("/{subscription_id}", response_model=SubscriptionGet)
-def get_subscription(subscription_id: int, db: Session = Depends(get_db)):
+def get_subscription(subscription_id: UUID, db: Session = Depends(get_db)):
     stmt = select(Subscription).where(
         Subscription.id == subscription_id,
         Subscription.deleted_at.is_(None),
@@ -56,7 +58,7 @@ def get_subscription(subscription_id: int, db: Session = Depends(get_db)):
     return sub
 
 @router.patch("/{subscription_id}", response_model=SubscriptionGet)
-def patch_subscription(subscription_id: int, data: SubscriptionUpdate, db: Session = Depends(get_db)):
+def patch_subscription(subscription_id: UUID, data: SubscriptionUpdate, db: Session = Depends(get_db)):
     values = {}
     if data.is_active is not None:
         values["is_active"] = data.is_active
@@ -83,7 +85,7 @@ def patch_subscription(subscription_id: int, data: SubscriptionUpdate, db: Sessi
     return sub
 
 @router.delete("/{subscription_id}", status_code=status.HTTP_204_NO_CONTENT)
-def soft_delete_subscription(subscription_id: int, db: Session = Depends(get_db)):
+def soft_delete_subscription(subscription_id: UUID, db: Session = Depends(get_db)):
     sub = db.execute(
         select(Subscription).where(Subscription.id == subscription_id, Subscription.deleted_at.is_(None))
     ).scalar_one_or_none()

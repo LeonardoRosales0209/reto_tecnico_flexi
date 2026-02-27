@@ -1,7 +1,7 @@
 import pytest
 import pytest_asyncio
-from httpx import AsyncClient
-from sqlalchemy import create_engine
+from httpx import AsyncClient, ASGITransport
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
 from app.main import app
@@ -52,5 +52,14 @@ def override_get_db(db_session):
 
 @pytest_asyncio.fixture()
 async def client(override_get_db):
-    async with AsyncClient(app=app, base_url="http://test") as ac:
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
         yield ac
+    
+@pytest.fixture(autouse=True)
+def clean_db(db_session):
+    db_session.execute(text('TRUNCATE TABLE "deliveryAttempts" RESTART IDENTITY CASCADE;'))
+    db_session.execute(text('TRUNCATE TABLE "eventPayloads" RESTART IDENTITY CASCADE;'))
+    db_session.execute(text('TRUNCATE TABLE "subscriptions" RESTART IDENTITY CASCADE;'))
+    db_session.commit()
+    yield

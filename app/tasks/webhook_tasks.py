@@ -10,6 +10,8 @@ from app.models.subscription import Subscription
 from app.models.event import EventPayload
 from app.models.delivery_attempt import DeliveryAttempt
 
+from uuid import UUID
+
 # Backoff requerido: 30s, luego 90s, luego fail (máximo 3 intentos)
 BACKOFF_SECONDS = [30, 90]  # after attempt 1 -> 30s, after attempt 2 -> 90s
 
@@ -18,8 +20,8 @@ def _get_db() -> Session:
 
 def _record_attempt(
     db: Session,
-    subscription_id: int,
-    event_id: int,
+    subscription_id: UUID,
+    event_id: UUID,
     status: str,
     http_status_code: int | None,
     response_body: str | None,
@@ -35,7 +37,7 @@ def _record_attempt(
     db.commit()
 
 @shared_task(bind=True, name="deliver_webhook")
-def deliver_webhook(self, subscription_id: int, event_id: int) -> None:
+def deliver_webhook(self, subscription_id: UUID, event_id: UUID) -> None:
     """
     Worker task:
     - POST to target_url with event payload

@@ -46,6 +46,6 @@ async def test_get_deliveries_for_event_returns_attempts(client, db_session):
     assert r.status_code == 200
     items = r.json()
     assert len(items) == 1
-    assert items[0]["event_id"] == ev.id
-    assert items[0]["subscription_id"] == sub.id
+    assert items[0]["event_id"] == str(ev.id)
+    assert items[0]["subscription_id"] == str(sub.id)
     assert items[0]["status"] == "failed"

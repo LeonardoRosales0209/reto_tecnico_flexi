@@ -1,3 +1,4 @@
+from uuid import UUID
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, AnyUrl, Field
@@ -13,7 +14,7 @@ class SubscriptionUpdate(BaseModel):
     target_url: Optional[AnyUrl] = None
 
 class SubscriptionGet(BaseModel):
-    id: int
+    id: UUID
     name: str
     target_url: str
     event_type: str
