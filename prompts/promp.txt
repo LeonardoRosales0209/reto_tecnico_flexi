@@ -4,3 +4,6 @@
 4. Se han creado los API REST necesarios, ahora necesito utilizar Celery con Redis como broker para entregas asíncrona, muestrame como realizarlo
 5. ¿Cómo implemento la tarea con Celery Beat?
 6. Utiliza pytest + httpx y genera al menos 5 tests
+7. Estoy utilizando "dfir-unfurl" para el bonus, ¿cómo la utilizo para cumplir con el reto?
+8. Crea los tests para probar unfurl
+9. Crea una colección para POSTMAN

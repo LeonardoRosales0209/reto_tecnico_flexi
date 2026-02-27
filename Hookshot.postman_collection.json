@@ -1,0 +1,74 @@
+{
+  "info": {
+    "name": "Hookshot Webhook API",
+    "_postman_id": "hookshot-collection",
+    "description": "API collection for testing subscriptions, events and deliveries.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Create Subscription",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Demo Sub\",\n  \"target_url\": \"https://example.com/webhook\",\n  \"event_type\": \"lead.created\",\n  \"secret\": \"supersecret\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/subscriptions",
+          "host": ["{{base_url}}"],
+          "path": ["subscriptions"]
+        }
+      }
+    },
+    {
+      "name": "List Subscriptions",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/subscriptions",
+          "host": ["{{base_url}}"],
+          "path": ["subscriptions"]
+        }
+      }
+    },
+    {
+      "name": "Publish Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"event_type\": \"lead.created\",\n  \"payload\": {\"id\": 123},\n  \"occurred_at\": \"2026-01-01T00:00:00Z\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/events",
+          "host": ["{{base_url}}"],
+          "path": ["events"]
+        }
+      }
+    },
+    {
+      "name": "Get Deliveries by Event",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/deliveries/{{event_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["deliveries", "{{event_id}}"]
+        }
+      }
+    }
+  ]
+}
