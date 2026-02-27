@@ -9,6 +9,7 @@ from app.models.subscription import Subscription
 from datetime import datetime, timezone
 
 from uuid import UUID
+from app.services.unfurl_service import unfurl_preview
 
 router = APIRouter(prefix="/subscriptions", tags=["subscriptions"])
 
@@ -17,6 +18,12 @@ def utcnow():
 
 @router.post("", response_model=SubscriptionGet, status_code=status.HTTP_201_CREATED)
 def create_subscription(data: SubscriptionCreate, db: Session = Depends(get_db)):
+    
+    try:
+        title, description = unfurl_preview(str(data.target_url))
+    except Exception:
+        title, description = None, None
+
     sub = Subscription(
         name=data.name,
         target_url=str(data.target_url),
@@ -25,6 +32,8 @@ def create_subscription(data: SubscriptionCreate, db: Session = Depends(get_db))
         is_active=True,
         created_at=utcnow(),
         deleted_at=None,
+        preview_title=title,
+        preview_description=description,
     )
     db.add(sub)
     db.commit()

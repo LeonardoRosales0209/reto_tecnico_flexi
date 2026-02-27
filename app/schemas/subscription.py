@@ -20,3 +20,6 @@ class SubscriptionGet(BaseModel):
     event_type: str
     is_active: bool
     created_at: datetime
+
+    preview_title: str | None = None
+    preview_description: str | None = None
